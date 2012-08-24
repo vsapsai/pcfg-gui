@@ -28,6 +28,7 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             obj = json.loads(content)
             if "content" in obj:
                 obj["length"] = len(obj["content"])
+                del obj["content"]
             obj["id"] = 1
 
             self.send_response(201)
