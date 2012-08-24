@@ -10,7 +10,13 @@ $(function($) {
 
 		talkToServer: function() {
 			var item = new app.Item();
-			item.save();
+			item.save({content: "mwahaha"}, {
+				success: function(model) {
+					console.log(model.toJSON());
+				},
+				error: function(model) {
+					console.log(model.toJSON());
+				}});
 		}
 	});
 });

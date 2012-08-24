@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import http.server
-import urllib.parse
+import cgi, urllib.parse
+import json
 import re
 
 class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -15,12 +16,39 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         # self.send_response(200)
         # self.wfile.write(b"abc\n")
 
+    def do_POST(self):
+        if self.path == "/app/items":
+            content_type = self.headers.get_content_type()
+            if content_type != "application/json":
+                self.send_error(415) # Unsupported Media Type
+                return
+
+            content = self.rfile_content()
+            content = str(content, "utf-8")
+            obj = json.loads(content)
+            print(obj)
+
+            self.send_response(201)
+            self.send_header("Location", "/app/items/1")
+            self.send_header("Connection", "close")
+            self.end_headers()
+        else:
+            self.send_error(501)
+
+    def rfile_content(self):
+        length = self.headers["Content-Length"]
+        if length is None:
+            return None
+        length = int(length)
+        content = self.rfile.read(length)
+        return content
+
     def send_file(self, filename):
         try:
             with open(filename, "rb") as f:
                 self.send_response(200)
                 #self.send_header("Content-Type", "text/html;charset=utf-8")
-                self.send_header("Connection", "close")
+                #self.send_header("Connection", "close")
                 self.end_headers()
 
                 file_contents = f.read()
