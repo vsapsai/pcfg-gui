@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 import http.server
+import re
 
 class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
-            self.send_file("index.html")
+            self.send_file("static/index.html")
+        elif re.match("^/static/", self.path):
+            relative_path = self.path[1:]
+            self.send_file(relative_path)
         else:
             self.send_not_found_response()
         # self.send_response(200)
@@ -14,7 +18,7 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         try:
             with open(filename, "rb") as f:
                 self.send_response(200)
-                self.send_header("Content-Type", "text/html;charset=utf-8")
+                #self.send_header("Content-Type", "text/html;charset=utf-8")
                 self.send_header("Connection", "close")
                 self.end_headers()
 
