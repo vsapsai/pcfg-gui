@@ -26,12 +26,16 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             content = self.rfile_content()
             content = str(content, "utf-8")
             obj = json.loads(content)
-            print(obj)
+            if "content" in obj:
+                obj["length"] = len(obj["content"])
+            obj["id"] = 1
 
             self.send_response(201)
             self.send_header("Location", "/app/items/1")
             self.send_header("Connection", "close")
             self.end_headers()
+
+            self.wfile.write(json.dumps(obj).encode())
         else:
             self.send_error(501)
 
