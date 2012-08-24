@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import http.server
+import urllib.parse
 import re
 
 class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
@@ -7,8 +8,8 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         if self.path == "/":
             self.send_file("static/index.html")
         elif re.match("^/static/", self.path):
-            relative_path = self.path[1:]
-            self.send_file(relative_path)
+            relative_file_path = urllib.parse.unquote(self.path)[1:]
+            self.send_file(relative_file_path)
         else:
             self.send_not_found_response()
         # self.send_response(200)
