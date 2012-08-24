@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Title</title>
-	<link rel="stylesheet" href="/static/style.css" />
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-	some content
-	<div class="box">styled content</div>
+    <div id="app">
+        <div id="item-placeholder"></div>
+        <button id="submit">Run</button>
+    </div>
+    <script src="/static/js/3rd party/jquery.min.js"></script>
+    <script src="/static/js/3rd party/underscore-min.js"></script>
+    <script src="/static/js/3rd party/backbone-min.js"></script>
+    <script src="/static/js/models/item.js"></script>
+    <script src="/static/js/views/app.js"></script>
+    <script src="/static/js/app.js"></script>
 </body>
 </html>
