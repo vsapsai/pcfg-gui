@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import http.server
-import cgi, urllib.parse
+import urllib.parse
 import json
 import re
 
