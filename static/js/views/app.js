@@ -1,6 +1,6 @@
 var app = app || {};
 
-$(function($) {
+$(function() {
     app.AppView = Backbone.View.extend({
         el: '#app',
 
