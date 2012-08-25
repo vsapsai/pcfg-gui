@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import http.server
 import urllib.parse
+import mimetypes
 import json
 import re
 
@@ -85,7 +86,9 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         try:
             with open(filename, "rb") as f:
                 self.send_response(HTTPStatusCode.SUCCESS)
-                #self.send_header("Content-Type", "text/html;charset=utf-8")
+                content_type, _ = mimetypes.guess_type(filename)
+                if content_type is not None:
+                    self.send_header("Content-Type", content_type)
                 self.send_header("Connection", "close")
                 self.end_headers()
 
