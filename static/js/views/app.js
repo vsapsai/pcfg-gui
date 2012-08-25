@@ -17,7 +17,11 @@ $(function() {
 
         render: function() {
             this.$input = this.$('#edit');
-            this.$input.val(this.model.get('content'));
+            var modelValue = this.model.get('content');
+            var inputValue = this.$input.val();
+            if (inputValue !== modelValue) {
+                this.$input.val(modelValue);
+            }
             this.$('#length').text(this.model.get('length'));
             return this;
         },
