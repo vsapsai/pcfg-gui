@@ -9,10 +9,15 @@
         <div id="item-placeholder"></div>
         <button id="submit">Run</button>
     </div>
+    <script type="text/template" id="item-template">
+        <input type="text" id="edit" value="<%= content %>">
+        length <%= length %>
+    </script>
     <script src="/static/js/3rd party/jquery.min.js"></script>
     <script src="/static/js/3rd party/underscore-min.js"></script>
     <script src="/static/js/3rd party/backbone-min.js"></script>
     <script src="/static/js/models/item.js"></script>
+    <script src="/static/js/views/item.js"></script>
     <script src="/static/js/views/app.js"></script>
     <script src="/static/js/app.js"></script>
 </body>

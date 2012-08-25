@@ -1,22 +1,21 @@
 var app = app || {};
 
 $(function($) {
-	app.AppView = Backbone.View.extend({
-		el: '#app',
+    app.AppView = Backbone.View.extend({
+        el: '#app',
 
-		events: {
-			'click #submit': 'talkToServer'
-		},
+        events: {
+            'click #submit': 'talkToServer'
+        },
 
-		talkToServer: function() {
-			var item = new app.Item();
-			item.save({content: "mwahaha"}, {
-				success: function(model) {
-					console.log(model.toJSON());
-				},
-				error: function(model) {
-					console.log(model.toJSON());
-				}});
-		}
-	});
+        initialize: function() {
+            var item = new app.Item();
+            app.itemView = new app.ItemView({model: item});
+            $('#item-placeholder').append(app.itemView.render().el);
+        },
+
+        talkToServer: function() {
+            app.itemView.updateModel();
+        }
+    });
 });
