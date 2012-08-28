@@ -38,6 +38,13 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
 
             self.wfile.write(json.dumps(obj).encode())
+        elif self.path == "/parseSentences":
+            self.send_response(HTTPStatusCode.SUCCESS)
+            self.send_header("Content-Type", "plain/text")
+            self.send_header("Connection", "close")
+            self.end_headers()
+            response = "some text"
+            self.wfile.write(response.encode())
         else:
             self.send_error(HTTPStatusCode.NOT_IMPLEMENTED_ERROR)
 

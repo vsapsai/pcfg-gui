@@ -9,9 +9,29 @@
     <div class="container">
     <textarea id="grammar-text" class="editor">asdf</textarea>
     <br>
-    <input id="submitbutton" type="button" class="btn btn-primary" value="Parse with grammar" />
-    <div id="grammar-results"></div>
+    <input id="submit-button" type="button" class="btn btn-primary" value="Parse with grammar" />
+    <br><br>
+    <pre id="grammar-results">Press "Parse with grammar" button to receive parsing results.</pre>
     </div>
     <script src="/static/js/3rd party/jquery.min.js"></script>
+    <script>
+        $('#submit-button').click(function() {
+            //alert($('#grammar-text').val());
+            var request = $.ajax({
+                url: "/parseSentences",
+                type: "POST",
+                data: $('#grammar-text').val(),
+                dataType: "text"
+            });
+
+            request.done(function(msg) {
+                $("#grammar-results").text(msg);
+            });
+
+            request.fail(function(jqXHR, textStatus) {
+                alert( "Request failed: " + textStatus );
+            });
+        });
+    </script>
 </body>
 </html>
