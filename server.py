@@ -4,6 +4,7 @@ import urllib.parse
 import mimetypes
 import json
 import re
+import subprocess
 
 class HTTPStatusCode:
     SUCCESS = 200
@@ -43,8 +44,9 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_header("Content-Type", "plain/text")
             self.send_header("Connection", "close")
             self.end_headers()
-            response = "some text"
-            self.wfile.write(response.encode())
+            grammar = self.rfile_content()
+            response = parse_sentences(grammar)
+            self.wfile.write(response)
         else:
             self.send_error(HTTPStatusCode.NOT_IMPLEMENTED_ERROR)
 
@@ -106,6 +108,12 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
     def send_not_found_response(self):
         self.send_error(404)
+
+def parse_sentences(grammar):
+    with open("grammar.gr", "wb") as f:
+        f.write(grammar)
+    return subprocess.check_output(["java", "-jar", "parser/pcfg.jar", "parse", 
+        "parser/examples.sen", "grammar.gr"], stderr=subprocess.STDOUT)
 
 def run(server_class=http.server.HTTPServer, handler_class=http.server.BaseHTTPRequestHandler):
     server_address = ('', 8000)
