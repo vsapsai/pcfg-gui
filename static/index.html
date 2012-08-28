@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="/static/style.css" />
+    <title>Competitive PCFG writing</title>
+    <link rel="stylesheet" href="/static/css/3rd party/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
-    <div id="app">
-        <input type="text" id="edit" autofocus>
-        length <span id="length"></span>
+    <div class="container">
+    <textarea id="grammar-text" class="editor">asdf</textarea>
+    <br>
+    <input id="submitbutton" type="button" class="btn btn-primary" value="Parse with grammar" />
+    <div id="grammar-results"></div>
     </div>
     <script src="/static/js/3rd party/jquery.min.js"></script>
-    <script src="/static/js/3rd party/underscore-min.js"></script>
-    <script src="/static/js/3rd party/backbone-min.js"></script>
-    <script src="/static/js/models/item.js"></script>
-    <script src="/static/js/views/app.js"></script>
-    <script src="/static/js/app.js"></script>
 </body>
 </html>
